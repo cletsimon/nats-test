@@ -14,7 +14,10 @@ const stan = nats.connect('ticketing', clientID, {
 stan.on('connect', () => {
   console.log('Listener connected to NATS');
 
-  const subscription = stan.subscribe('ticket:created');
+  const subscription = stan.subscribe(
+    'ticket:created',
+    'oders-service-queue-group'
+  );
 
   subscription.on('message', (msg: Message) => {
     const data = msg.getData();
